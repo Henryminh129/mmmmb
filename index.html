@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spartan.Edu | The Ultimate Ecosystem</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="theme-light">
+    <div id="toast-container"></div>
+
+    <!-- AUTH SCREEN -->
+    <div id="auth-screen">
+        <div class="landing-container">
+            <div class="landing-hero">
+                <div class="logo-landing"
+                    style="margin-bottom: 40px; display: flex; align-items: center; gap: 8px; font-size: 1.5rem; font-weight: 700; color: #1F2937; font-family: var(--font-head);">
+                    <span style="font-size: 1.8rem;">📚</span>
+                    <span>Spartan.Edu</span>
+                </div>
+                <h1 class="hero-title">
+                    Learn Academics & Arts<br>
+                    <span>Double The Effectiveness</span>
+                </h1>
+                <p class="hero-sub">
+                    Integrated platform for ambitious learners. Private data storage.
+                    Sign up now to get started building your legacy.
+                </p>
+            </div>
+
+            <div class="landing-form">
+                <!-- Login Form -->
+                <div id="form-login" class="auth-card">
+                    <div class="auth-header">
+                        <h2>Welcome Back</h2>
+                    </div>
+                    <form onsubmit="Auth.login(event)">
+                        <div class="input-group">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" id="log-email" class="input-std" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="log-pass" class="input-std" placeholder="Password" required>
+                        </div>
+                        <div style="text-align: right; margin-bottom: 25px;">
+                            <a href="#" style="color: var(--accent-color); font-weight: 600; font-size: 0.9rem;">Forgot
+                                Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">Login</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 20px; color: var(--text-secondary);">
+                        No account? <a onclick="Auth.toggle('signup')"
+                            style="color: var(--accent-color); cursor: pointer; font-weight: 700;">Sign Up</a>
+                    </p>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="form-signup" class="auth-card hidden">
+                    <div class="auth-header">
+                        <h2>Create Account</h2>
+                    </div>
+                    <form onsubmit="Auth.signup(event)">
+                        <div class="input-group">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" id="reg-name" class="input-std" placeholder="Display Name" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" id="reg-email" class="input-std" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="reg-pass" class="input-std" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full" style="margin-top: 20px;">Create
+                            Account</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 20px;">
+                        Already have an account? <a onclick="Auth.toggle('login')"
+                            style="color: var(--accent-color); cursor: pointer; font-weight: 700;">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP SHELL -->
+    <div id="app-shell" class="hidden w-full h-full">
+        <aside class="sidebar">
+            <div class="logo-landing"
+                style="margin-bottom: 35px; display: flex; align-items: center; justify-content: center; padding: 10px 0; font-size: 1.5rem; font-weight: 800; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-family: var(--font-head);">
+                Spartan.Edu
+            </div>
+
+            <nav class="flex-col">
+                <div class="nav-item active" onclick="Nav.to('piano', this)">
+                    <i class="fa-solid fa-music" style="width: 20px;"></i> <span>Piano Lab</span>
+                </div>
+                <div class="nav-item" onclick="Nav.to('flashcards', this)">
+                    <i class="fa-solid fa-layer-group" style="width: 20px;"></i> <span>Knowledge Hub</span>
+                </div>
+                <div class="nav-item" onclick="Nav.to('tasks', this)">
+                    <i class="fa-solid fa-list-check" style="width: 20px;"></i> <span>Task Arena</span>
+                </div>
+                <div class="nav-item" onclick="Nav.to('pathway', this)">
+                    <i class="fa-solid fa-route" style="width: 20px;"></i> <span>Learning Path</span>
+                </div>
+                <div class="nav-item" onclick="Nav.to('community', this)">
+                    <i class="fa-solid fa-comments" style="width: 20px;"></i> <span>Community</span>
+                </div>
+                <div class="nav-item" onclick="Nav.to('whiteboard', this)">
+                    <i class="fa-solid fa-pen-ruler" style="width: 20px;"></i> <span>Whiteboard</span>
+                </div>
+            </nav>
+
+            <div class="settings-widget">
+                <div class="settings-btn" onclick="Lang.toggle()" title="Switch Language">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div class="settings-btn" onclick="Theme.toggle()" title="Toggle Theme">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </div>
+            </div>
+
+            <div class="user-widget">
+                <div class="user-avatar" id="app-avatar"
+                    style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand-gradient); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                    U</div>
+                <div style="color:var(--text-primary);">
+                    <div style="font-weight: 700;" id="app-username">User</div>
+                    <div style="font-size: 0.75rem; opacity: 0.6;">Learner</div>
+                </div>
+                <i class="fa-solid fa-right-from-bracket"
+                    style="margin-left: auto; cursor: pointer; opacity: 0.5; color:var(--text-primary);"
+                    onclick="Auth.logout()"></i>
+            </div>
+        </aside>
+
+        <main style="flex: 1; height: 100%; overflow: hidden; background: var(--bg-main);">
+            <!-- PIANO MODULE -->
+            <div id="mod-piano" class="module-flex-column">
+                <div class="piano-header font-head">
+                    <div style="font-size: 1.2rem; font-weight: 700;">
+                        <i class="fa-solid fa-terminal"></i> AUDIO ENGINE
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">
+                        WebAudio API Active <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+                <div class="piano-stage">
+                    <div class="piano-case">
+                        <div style="margin-bottom: 30px; display: flex; gap: 20px; align-items: center;">
+                            <label style="font-weight: 600; color: var(--text-secondary);">Volume</label>
+                            <input type="range" id="vol-slider" min="0" max="100" value="50">
+                            <label style="font-weight: 600; color: var(--text-secondary);">Waveform</label>
+                            <select id="wave-type" class="input-std" style="width: 120px; padding: 5px;">
+                                <option value="sine">Grand (Sine)</option>
+                                <option value="triangle">Soft (Tri)</option>
+                                <option value="sawtooth">Synth (Saw)</option>
+                            </select>
+                            <button class="btn btn-secondary" onclick="Piano.openBindEditor()">Keybinds</button>
+                        </div>
+                        <div class="keys-wrapper" id="piano-keys"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FLASHCARDS MODULE -->
+            <div id="mod-flashcards" class="hidden module-flex-column">
+                <div class="fc-header">
+                    <h2 class="font-head" style="color: var(--text-primary); font-size: 1.8rem;">Knowledge Hub</h2>
+                    <div class="flex gap-10">
+                        <button class="btn btn-secondary" onclick="Shared.openJoinUI()">
+                            <i class="fa-solid fa-download"></i> Join
+                        </button>
+                        <button class="btn btn-secondary btn-toggle" id="fc-shuffle-btn" onclick="FC.shuffleNow()"
+                            title="Shuffle Cards">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
+                        <button class="btn btn-primary"
+                            onclick="Modals.prompt('New Deck', 'Deck Name:', FC.createFolder)">
+                            + New Deck
+                        </button>
+                    </div>
+                </div>
+                <div class="folder-grid" id="folder-grid"></div>
+
+                <!-- Deck Overview Panel -->
+                <div id="fc-overview-panel" class="hidden">
+                    <div class="fc-header" style="border-bottom: 1px solid var(--border-color);">
+                        <div class="flex items-center gap-20">
+                            <button class="btn btn-secondary" style="border:none;" onclick="FC.closeOverview()">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <h2 class="font-head" style="color: var(--text-primary);" id="ov-title">Deck Name</h2>
+                            <span id="ov-role-badge" class="read-only-badge hidden">Read Only</span>
+                        </div>
+                        <div class="flex gap-10">
+                            <button class="btn btn-secondary" onclick="FC.editFolder()" id="btn-edit-folder">
+                                <i class="fa-solid fa-pen"></i> Edit Deck
+                            </button>
+                            <button class="btn btn-secondary" onclick="FC.jumpToTasks()">
+                                <i class="fa-solid fa-list-check"></i> Go to Tasks
+                            </button>
+                            <button class="btn btn-secondary btn-toggle" id="fc-shuffle-btn-ov"
+                                onclick="FC.shuffleNow()" title="Shuffle Cards">
+                                <i class="fa-solid fa-shuffle"></i>
+                            </button>
+                            <button class="btn btn-secondary" onclick="FC.shareCurrentDeck()">
+                                <i class="fa-solid fa-share-nodes"></i> Share
+                            </button>
+                            <button class="btn btn-secondary" onclick="FC.startQuiz()">
+                                <i class="fa-solid fa-brain"></i> Quiz
+                            </button>
+                            <button class="btn btn-primary" onclick="FC.startStudy()">Start Study</button>
+                            <button class="btn btn-secondary" onclick="Modals.open('modal-add-card')"
+                                id="btn-add-card">+ Add</button>
+                        </div>
+                    </div>
+                    <div class="folder-grid" id="word-list"
+                        style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));"></div>
+                </div>
+
+                <!-- Study Overlay -->
+                <div id="study-overlay" class="hidden">
+                    <div class="study-header">
+                        <button class="btn btn-secondary"
+                            style="background:rgba(255,255,255,0.1); color:white; border:none;"
+                            onclick="FC.closeStudy()">Exit</button>
+                        <div style="color: white; font-weight: 700;" id="st-count">1 / 10</div>
+                        <button class="btn btn-secondary"
+                            style="background:rgba(255,255,255,0.1); color:white; border:none;"
+                            onclick="FC.shareCurrentDeck()">Share</button>
+                    </div>
+
+                    <!-- Flip Mode -->
+                    <div id="mode-flip" class="flashcard-stage">
+                        <div style="position: relative; width: 100%; max-width: 600px;">
+                            <div class="card-3d" onclick="this.classList.toggle('flipped')">
+                                <div class="card-face face-front">
+                                    <div id="st-img-container"></div>
+                                    <div class="term-text" id="st-q">Question</div>
+                                    <div style="font-size:0.9rem; color:gray; margin-top:10px;">Click to flip</div>
+                                </div>
+                                <div class="card-face face-back">
+                                    <div class="term-text" id="st-a">Answer</div>
+                                </div>
+                            </div>
+                            <!-- Card Action Buttons -->
+                            <div id="study-card-actions"
+                                style="position: absolute; top: -50px; right: 0; display: flex; gap: 10px;">
+                                <button class="btn btn-secondary"
+                                    style="background:rgba(255,255,255,0.1); color:white; border:none; padding: 8px 12px;"
+                                    onclick="event.stopPropagation(); FC.editCurrentCard()">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <button class="btn btn-secondary"
+                                    style="background:rgba(255,68,68,0.2); color:#ff4444; border:none; padding: 8px 12px;"
+                                    onclick="event.stopPropagation(); FC.deleteCurrentCard()">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex gap-20" style="margin-top: 40px;">
+                            <button class="btn btn-secondary"
+                                style="background:rgba(255,255,255,0.1); color:white; border:none;"
+                                onclick="FC.nav(-1)">Prev</button>
+                            <button class="btn btn-primary" onclick="FC.nav(1)">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Mode -->
+                    <div id="mode-quiz" class="flashcard-stage hidden">
+                        <h2 class="font-head" style="font-size: 3rem; color: white; margin-bottom: 40px;" id="qz-q">?
+                        </h2>
+                        <div id="qz-reveal" class="hidden flex flex-col items-center">
+                            <p style="font-size: 1.5rem; color: var(--status-success); margin-bottom: 30px;" id="qz-a">
+                                ...</p>
+                            <div class="flex gap-20">
+                                <button class="btn btn-secondary"
+                                    style="color: var(--status-danger); border-color:var(--status-danger);"
+                                    onclick="FC.ans(false)">Forgot</button>
+                                <button class="btn btn-secondary"
+                                    style="color: var(--status-success); border-color:var(--status-success);"
+                                    onclick="FC.ans(true)">Recall</button>
+                            </div>
+                        </div>
+                        <button id="qz-btn-show" class="btn btn-primary" onclick="FC.showQuiz()">Reveal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TASKS MODULE -->
+            <div id="mod-tasks" class="hidden module-flex">
+                <div class="task-sidebar">
+                    <div
+                        style="font-size: 0.7rem; font-weight: 800; color: var(--text-secondary); margin-bottom: 15px; letter-spacing: 1px;">
+                        PROJECTS
+                    </div>
+                    <div id="project-list" style="flex:1; overflow-y:auto;"></div>
+                    <button class="btn btn-secondary w-full" style="margin-top: 15px; border-style: dashed;"
+                        onclick="Modals.prompt('New Project','Project Name:', Tasks.createProject)">
+                        + New Project
+                    </button>
+                </div>
+
+                <div class="task-main">
+                    <div class="task-board-header">
+                        <div>
+                            <h2 class="font-head" style="font-size: 1.8rem; color: var(--text-primary);"
+                                id="proj-header">Projects</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Workspace: Main</p>
+                        </div>
+                        <div class="flex gap-10">
+                            <button class="btn btn-secondary" onclick="Tasks.jumpToFlashcards()">
+                                <i class="fa-solid fa-layer-group"></i> Go to Flashcards
+                            </button>
+                            <button class="btn btn-secondary" onclick="Tasks.share()">
+                                <i class="fa-solid fa-share-nodes"></i> Share Project
+                            </button>
+                            <button class="btn btn-primary" onclick="Tasks.addTask()">+ New Task</button>
+                        </div>
+                    </div>
+
+                    <div class="task-list-container">
+                        <div class="task-cols">
+                            <div></div>
+                            <div>Name</div>
+                            <div>Assignee</div>
+                            <div>Due Date</div>
+                            <div>Priority</div>
+                        </div>
+                        <div id="task-rows"></div>
+                    </div>
+
+                    <!-- Task Detail Panel -->
+                    <div id="task-panel" class="task-detail-panel">
+                        <div class="flex justify-between" style="margin-bottom: 30px;">
+                            <div class="flex gap-10">
+                                <button class="btn btn-secondary"
+                                    style="color: var(--status-success); border-color: var(--status-success);"
+                                    onclick="Tasks.complete()">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button class="btn btn-danger"
+                                    onclick="Modals.confirm('Delete Task', 'Are you sure?', Tasks.deleteTask)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <button class="btn btn-secondary" style="border:none;" onclick="Tasks.closePanel()">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <input type="text" id="edit-title" class="input-std"
+                            style="background: transparent; border: none; font-size: 1.5rem; font-weight: 700; padding: 0; margin-bottom: 20px;"
+                            placeholder="Task Name">
+
+                        <div class="input-wrapper">
+                            <input type="file" id="task-img" class="hidden-input" accept="image/*"
+                                onchange="Tasks.handleTaskImage(this)">
+                            <div class="file-upload-box" id="task-img-label"
+                                onclick="document.getElementById('task-img').click()">
+                                <i class="fa-solid fa-paperclip"></i><span>Attach Image</span>
+                            </div>
+                            <div class="image-preview-wrapper" id="task-preview-container" style="display:none;">
+                                <img id="task-img-preview" class="card-img-preview">
+                                <button class="btn-remove-image" onclick="Tasks.removeImage()" id="task-img-remove">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: center; margin-bottom:30px;">
+                            <span style="color: var(--text-secondary);">Assignee</span>
+                            <input type="text" id="edit-assignee" class="input-std" style="padding:6px;"
+                                placeholder="Assign to...">
+
+                            <span style="color: var(--text-secondary);">Due Date</span>
+                            <input type="date" id="edit-date" class="input-std" style="width: auto; padding: 6px;">
+
+                            <span style="color: var(--text-secondary);">Priority</span>
+                            <select id="edit-priority" class="input-std" style="width: auto; padding: 6px;">
+                                <option value="High">High</option>
+                                <option value="Med">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+
+                        <h4 style="color: var(--text-secondary); margin-bottom: 10px;">Description</h4>
+                        <textarea id="edit-desc" class="input-std" style="height: 120px; resize: none;"
+                            placeholder="Details..."></textarea>
+
+                        <div style="border-top: 1px solid var(--border-color); margin: 25px 0; padding-top: 25px;">
+                            <h4
+                                style="color: var(--text-secondary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-comments"></i> Comments
+                            </h4>
+
+                            <div id="task-comments-list"
+                                style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; display: flex; flex-direction: column; gap: 12px;">
+                                <!-- Comments will be rendered here -->
+                            </div>
+
+                            <div style="display: flex; gap: 10px; align-items: flex-start;">
+                                <textarea id="task-comment-input" class="input-std" placeholder="Add a comment..."
+                                    style="flex: 1; height: 60px; resize: none;"
+                                    onkeydown="if(event.key==='Enter' && event.ctrlKey) Tasks.addComment()"></textarea>
+                                <button class="btn btn-primary" onclick="Tasks.addComment()" style="height: 60px;">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
+                                Press Ctrl+Enter to send
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATHWAY MODULE -->
+            <div id="mod-pathway" class="hidden module-flex">
+                <div class="pathway-sidebar">
+                    <div style="padding: 15px; border-bottom: 1px solid var(--border-color);">
+                        <h3
+                            style="font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <span>My Courses</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;"
+                                    onclick="Pathway.createCourse()">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;"
+                                    onclick="Shared.openJoinUI()">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </div>
+                        </h3>
+                        <div id="course-list"
+                            style="display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto;">
+                            <!-- Courses will be rendered here -->
+                        </div>
+                    </div>
+
+                    <div class="pathway-progress">
+                        <div class="progress-ring">
+                            <svg width="120" height="120" class="progress-circle">
+                                <defs>
+                                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#FF512F;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#DD2476;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="progress-bg" cx="60" cy="60" r="52"></circle>
+                                <circle class="progress-bar" cx="60" cy="60" r="52" stroke-dasharray="327"
+                                    stroke-dashoffset="230" id="progress-circle"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <div class="progress-percent" id="progress-percent">0%</div>
+                                <div class="progress-label">Complete</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
+                            <strong style="color: var(--text-primary);" id="lessons-completed">0</strong> of
+                            <strong style="color: var(--text-primary);" id="lessons-total">0</strong> lessons
+                        </div>
+                    </div>
+                    <div class="chapter-list" id="chapter-list"></div>
+                </div>
+
+                <div class="pathway-main">
+                    <div class="lesson-header">
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <h1 class="lesson-title-main" id="lesson-title-main" style="margin: 0; flex: 1;">Welcome to
+                                the Course</h1>
+                            <button class="btn btn-secondary" id="btn-upload-video" onclick="Pathway.uploadVideo()"
+                                style="display: none;">
+                                <i class="fa-solid fa-video"></i> Upload Video
+                            </button>
+                            <button class="btn btn-secondary" onclick="Pathway.shareCourse()">
+                                <i class="fa-solid fa-share-nodes"></i> Share
+                            </button>
+                        </div>
+                        <div class="lesson-nav" style="margin-top: 15px;">
+                            <button class="btn btn-secondary" onclick="Pathway.prevLesson()">
+                                <i class="fa-solid fa-arrow-left"></i> Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="Pathway.nextLesson()">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lesson-content-area">
+                        <div class="lesson-tabs">
+                            <div class="lesson-tab active" onclick="Pathway.switchTab(this, 'content')">Content</div>
+                            <div class="lesson-tab" onclick="Pathway.switchTab(this, 'notes')">Notes</div>
+                        </div>
+
+                        <div id="lesson-tab-content">
+                            <div id="lesson-video-container" style="margin-bottom: 20px; display: none;">
+                                <!-- Video will be rendered here -->
+                            </div>
+                            <div id="lesson-text-content"
+                                style="padding: 20px; background: var(--bg-surface); border-radius: 10px; line-height: 1.8; color: var(--text-primary);">
+                                Loading content...
+                            </div>
+                        </div>
+                        <div class="lesson-description" id="lesson-description">
+                            <h3 style="margin-bottom: 15px;">About This Lesson</h3>
+                            <p>Welcome to your learning journey! This comprehensive course will guide you through
+                                essential concepts with hands-on practice and real-world examples.</p>
+                        </div>
+                    </div>
+
+                    <div id="lesson-tab-attachments" class="hidden"></div>
+
+                    <div id="lesson-tab-notes" class="hidden">
+                        <textarea class="input-std" id="lesson-notes" style="height: 300px; resize: vertical;"
+                            placeholder="Take notes here..."></textarea>
+                        <button class="btn btn-primary" onclick="Pathway.saveNotes()" style="margin-top: 15px;">
+                            <i class="fa-solid fa-save"></i> Save Notes
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- COMMUNITY MODULE -->
+
+    <!-- COMMUNITY MODULE - FULLSCREEN OVERLAY -->
+    <div id="mod-community" class="hidden"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-main); z-index: 1000; display: flex;">
+
+        <!-- Logo Back Button - Bottom Left -->
+        <div onclick="Nav.back()"
+            style="position: fixed; bottom: 24px; left: 24px; z-index: 20; cursor: pointer; transition: all 0.3s ease; padding: 16px 18px; background: var(--bg-surface); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid var(--border-color); backdrop-filter: blur(10px);"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.18)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'">
+            <img src="SpartanEdu_logo.png" alt="Back"
+                style="height: 55px; width: auto; display: block; object-fit: contain;">
+            <div
+                style="font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">
+                <i class="fa-solid fa-arrow-left" style="font-size: 0.7rem; margin-right: 4px;"></i>Back
+            </div>
+        </div>
+
+        <!-- Left sidebar: 280px fixed -->
+        <div
+            style="width: 280px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;">
+            <div style="padding: 20px; border-bottom: 1px solid var(--border-color);">
+                <h2
+                    style="font-family: var(--font-head); font-size: 1.3rem; font-weight: 800; color: var(--text-primary);">
+                    Channels</h2>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px;">Connect with learners</p>
+            </div>
+            <div id="channel-list" style="flex: 1; overflow-y: auto; padding: 10px 0;"></div>
+        </div>
+
+        <!-- Main chat area: flex: 1 -->
+        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-main);">
+            <!-- Chat header -->
+            <div
+                style="padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; background: var(--bg-surface);">
+                <div>
+                    <h3 id="channel-name"
+                        style="font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px;">
+                        # general</h3>
+                    <div
+                        style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: var(--text-secondary); margin-top: 3px;">
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></div>
+                        <span id="online-count">3 online</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="Community.shareChannel()">
+                        <i class="fa-solid fa-share-nodes"></i> Share
+                    </button>
+                    <button class="btn btn-secondary" onclick="Community.clearChannel()">
+                        <i class="fa-solid fa-broom"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages area -->
+            <div id="chat-messages"
+                style="flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 2px;">
+            </div>
+
+            <!-- Input area -->
+            <div
+                style="padding: 20px; background: var(--bg-surface); border-top: 1px solid var(--border-color); flex-shrink: 0;">
+                <div
+                    style="display: flex; align-items: center; gap: 10px; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 15px;">
+                    <textarea class="chat-input" id="chat-input" placeholder="Message #general..." rows="1"
+                        onkeydown="Community.handleKeyDown(event)"
+                        style="flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); resize: none; font-size: 0.95rem; line-height: 1.5; max-height: 150px;"></textarea>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="Community.addEmoji()" title="Add Emoji"
+                            style="width: 32px; height: 32px; border-radius: 6px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-regular fa-face-smile"></i>
+                        </button>
+                        <button onclick="Community.sendMessage()" title="Send"
+                            style="width: 32px; height: 32px; border-radius: 6px; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- WHITEBOARD MODULE - FULLSCREEN OVERLAY -->
+    <div id="mod-whiteboard" class="hidden"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-main); z-index: 1000; display: flex; flex-direction: column;">
+
+        <!-- Logo Back Button - Bottom Left -->
+        <div onclick="Nav.back()"
+            style="position: fixed; bottom: 24px; left: 24px; z-index: 20; cursor: pointer; transition: all 0.3s ease; padding: 16px 18px; background: var(--bg-surface); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid var(--border-color); backdrop-filter: blur(10px);"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.18)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'">
+            <img src="SpartanEdu_logo.png" alt="Back"
+                style="height: 55px; width: auto; display: block; object-fit: contain;">
+            <div
+                style="font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">
+                <i class="fa-solid fa-arrow-left" style="font-size: 0.7rem; margin-right: 4px;"></i>Back
+            </div>
+        </div>
+
+        <div class="wb-toolbar">
+            <div style="display: flex; align-items: center; gap: 20px; flex: 1;">
+                <h2 class="font-head" style="margin: 0;">Whiteboard</h2>
+
+                <div class="wb-divider"></div>
+
+                <div class="wb-toolbar-group">
+                    <button class="wb-tool-btn active" data-tool="select" onclick="Whiteboard.setTool('select')"
+                        title="Select (V)">
+                        <i class="fa-solid fa-arrow-pointer"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="pen" onclick="Whiteboard.setTool('pen')" title="Pen (P)">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="eraser" onclick="Whiteboard.setTool('eraser')"
+                        title="Eraser (E)">
+                        <i class="fa-solid fa-eraser"></i>
+                    </button>
+                </div>
+
+                <div class="wb-divider"></div>
+
+                <div class="wb-toolbar-group">
+                    <button class="wb-tool-btn" data-tool="rect" onclick="Whiteboard.setTool('rect')"
+                        title="Rectangle (R)">
+                        <i class="fa-regular fa-square"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="ellipse" onclick="Whiteboard.setTool('ellipse')"
+                        title="Circle (C)">
+                        <i class="fa-regular fa-circle"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="line" onclick="Whiteboard.setTool('line')" title="Line (L)">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="text" onclick="Whiteboard.setTool('text')" title="Text (T)">
+                        <i class="fa-solid fa-font"></i>
+                    </button>
+                    <button class="wb-tool-btn" data-tool="note" onclick="Whiteboard.setTool('note')"
+                        title="Sticky Note (N)">
+                        <i class="fa-solid fa-note-sticky"></i>
+                    </button>
+                </div>
+
+                <div class="wb-divider"></div>
+
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="wb-color-picker">
+                        <input type="color" id="wb-color" value="#FF512F">
+                        <label for="wb-color" style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                            <i class="fa-solid fa-palette"></i>
+                        </label>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-pen-nib" style="font-size: 0.8rem; color: var(--text-secondary);"></i>
+                        <input type="range" id="wb-size" min="1" max="20" value="3" style="width: 120px;">
+                        <span id="wb-size-display"
+                            style="font-size: 0.85rem; color: var(--text-secondary); min-width: 30px;">3px</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="btn btn-secondary" style="padding: 8px 12px;" onclick="Whiteboard.zoomOut()">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <span id="wb-zoom-display"
+                    style="min-width: 60px; text-align: center; font-weight: 600; color: var(--text-primary);">100%</span>
+                <button class="btn btn-secondary" style="padding: 8px 12px;" onclick="Whiteboard.zoomIn()">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <div class="wb-divider" style="margin: 0 8px;"></div>
+
+                <button class="btn btn-secondary" onclick="Whiteboard.undo()" title="Undo (Ctrl+Z)">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="Whiteboard.clear()" title="Clear Board">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+                <div class="wb-divider"></div>
+
+                <div class="wb-zoom-controls">
+                    <button class="wb-zoom-btn" onclick="Whiteboard.zoomOut()" title="Zoom Out">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="wb-zoom-display" id="wb-zoom-display">100%</span>
+                    <button class="wb-zoom-btn" onclick="Whiteboard.zoomIn()" title="Zoom In">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button class="wb-zoom-btn" onclick="Whiteboard.resetZoom()" title="Reset">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                </div>
+
+                <div class="wb-divider"></div>
+
+                <button class="btn btn-primary" onclick="Whiteboard.export()">
+                    <i class="fa-solid fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Workspace: flex: 1, contains canvas + right panel -->
+        <div style="flex: 1; display: flex; overflow: hidden; position: relative; min-height: 0;">
+            <!-- Canvas area: flex: 1 -->
+            <div id="wb-canvas-container"
+                style="flex: 1; position: relative; overflow: hidden; background: linear-gradient(var(--border-color) 1px, transparent 1px), linear-gradient(90deg, var(--border-color) 1px, transparent 1px); background-size: 20px 20px; cursor: crosshair; min-width: 0;">
+                <canvas id="wb-canvas"></canvas>
+            </div>
+
+            <!-- Right panel: 280px fixed -->
+            <div
+                style="width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;">
+                <div
+                    style="padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);">
+                    Boards</div>
+                <div id="wb-board-list" style="flex: 0 0 auto; overflow-y: auto; max-height: 200px;"></div>
+                <div style="padding: 10px; border-top: 1px solid var(--border-color);">
+                    <button class="btn btn-secondary w-full" style="margin-bottom: 8px;"
+                        onclick="Whiteboard.addBoard()">
+                        <i class="fa-solid fa-plus"></i> New Board
+                    </button>
+                </div>
+
+                <div
+                    style="padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-top: 15px;">
+                    Layers</div>
+                <div id="wb-layer-list" style="flex: 1; overflow-y: auto;"></div>
+                <div style="padding: 10px; border-top: 1px solid var(--border-color);">
+                    <button class="btn btn-secondary w-full" onclick="Whiteboard.addLayer()">
+                        <i class="fa-solid fa-plus"></i> New Layer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </main>
+    </div>
+
+    <!-- MODALS -->
+    <div id="modal-custom-input" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="custom-input-title" style="font-size:1.5rem; margin-bottom:15px; font-weight:700;">Input</h2>
+            <p id="custom-input-desc" style="color: var(--text-secondary); margin-bottom: 20px; display: none;"></p>
+            <div class="input-wrapper">
+                <textarea id="custom-input-field" class="input-std" rows="3" placeholder="Enter text..."></textarea>
+            </div>
+            <div class="flex justify-between" style="margin-top:20px; gap: 10px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="CustomModal.cancel()">Cancel</button>
+                <button class="btn btn-primary" style="flex: 1;" id="custom-input-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-prompt" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="prompt-title" style="font-size:1.5rem; margin-bottom:15px; font-weight:700;">Input</h2>
+            <div class="input-wrapper">
+                <label id="prompt-label" style="display:block; margin-bottom:5px;">Value</label>
+                <input id="prompt-input" class="input-std">
+            </div>
+            <div class="flex justify-between" style="margin-top:20px;">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" id="prompt-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-confirm" class="modal-overlay">
+        <div class="modal-box">
+            <h2 id="confirm-title"
+                style="font-size:1.5rem; margin-bottom:10px; font-weight:700; color:var(--status-danger)">Confirm</h2>
+            <p id="confirm-msg" style="margin-bottom:20px;">Are you sure?</p>
+            <div class="flex justify-between">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-danger" id="confirm-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-keybinds" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; margin-bottom:15px;">Piano Keybinds</h2>
+            <div id="binds-list" class="bind-grid"></div>
+            <div class="flex justify-between"
+                style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" onclick="Piano.saveBinds()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-add-card" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:20px;">New Flashcard</h2>
+            <div class="input-wrapper">
+                <input id="new-q" class="input-std" placeholder="Front (Question)">
+            </div>
+            <div class="input-wrapper">
+                <textarea id="new-a" class="input-std" style="height: 100px;" placeholder="Back (Answer)"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <input type="file" id="new-img" class="hidden-input" accept="image/*"
+                    onchange="FC.handleFileSelect(this, 'add-preview', 'add-label', 'add-preview-container', 'add-remove-btn')">
+                <div class="file-upload-box" id="add-label" onclick="document.getElementById('new-img').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i><span>Choose Image</span>
+                </div>
+                <div class="image-preview-wrapper" id="add-preview-container">
+                    <img id="add-preview" class="card-img-preview">
+                    <button class="btn-remove-image" id="add-remove-btn"
+                        onclick="FC.removeImage('new-img', 'add-preview', 'add-label', 'add-preview-container')">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-between" style="margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" onclick="FC.submitCard()">Save Card</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-edit-card" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:20px;">Edit Flashcard</h2>
+            <div class="input-wrapper">
+                <input id="edit-card-q" class="input-std" placeholder="Front (Question)">
+            </div>
+            <div class="input-wrapper">
+                <textarea id="edit-card-a" class="input-std" style="height: 100px;"
+                    placeholder="Back (Answer)"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <input type="file" id="edit-card-img" class="hidden-input" accept="image/*"
+                    onchange="FC.handleFileSelect(this, 'edit-card-preview', 'edit-card-label', 'edit-card-preview-container', 'edit-card-remove-btn')">
+                <div class="file-upload-box" id="edit-card-label"
+                    onclick="document.getElementById('edit-card-img').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i><span>Choose Image</span>
+                </div>
+                <div class="image-preview-wrapper" id="edit-card-preview-container">
+                    <img id="edit-card-preview" class="card-img-preview">
+                    <button class="btn-remove-image" id="edit-card-remove-btn"
+                        onclick="FC.removeImage('edit-card-img', 'edit-card-preview', 'edit-card-label', 'edit-card-preview-container')">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-between" style="margin-top: 20px;">
+                <button class="btn btn-danger" onclick="FC.deleteCard()">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+                <div class="flex gap-10">
+                    <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                    <button class="btn btn-primary" onclick="FC.updateCard()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-edit-folder" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:20px;">Edit Deck</h2>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:5px; color: var(--text-secondary);">Deck Name</label>
+                <input id="edit-folder-name" class="input-std" placeholder="Deck Name">
+            </div>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:5px; color: var(--text-secondary);">Icon</label>
+                <div class="icon-options" id="icon-options">
+                    <div class="icon-option" data-icon="📁" onclick="FC.selectIcon(this)">📁</div>
+                    <div class="icon-option" data-icon="📚" onclick="FC.selectIcon(this)">📚</div>
+                    <div class="icon-option" data-icon="🎯" onclick="FC.selectIcon(this)">🎯</div>
+                    <div class="icon-option" data-icon="🚀" onclick="FC.selectIcon(this)">🚀</div>
+                    <div class="icon-option" data-icon="💡" onclick="FC.selectIcon(this)">💡</div>
+                    <div class="icon-option" data-icon="🎨" onclick="FC.selectIcon(this)">🎨</div>
+                    <div class="icon-option" data-icon="🔥" onclick="FC.selectIcon(this)">🔥</div>
+                    <div class="icon-option" data-icon="⚡" onclick="FC.selectIcon(this)">⚡</div>
+                </div>
+            </div>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:5px; color: var(--text-secondary);">Color</label>
+                <div class="color-options" id="color-options">
+                    <div class="color-option" data-color="#FF512F" style="background: #FF512F;"
+                        onclick="FC.selectColor(this)"></div>
+                    <div class="color-option" data-color="#3B82F6" style="background: #3B82F6;"
+                        onclick="FC.selectColor(this)"></div>
+                    <div class="color-option" data-color="#10B981" style="background: #10B981;"
+                        onclick="FC.selectColor(this)"></div>
+                    <div class="color-option" data-color="#F59E0B" style="background: #F59E0B;"
+                        onclick="FC.selectColor(this)"></div>
+                    <div class="color-option" data-color="#8B5CF6" style="background: #8B5CF6;"
+                        onclick="FC.selectColor(this)"></div>
+                    <div class="color-option" data-color="#EC4899" style="background: #EC4899;"
+                        onclick="FC.selectColor(this)"></div>
+                </div>
+            </div>
+            <div class="flex justify-between" style="margin-top: 20px;">
+                <button class="btn btn-danger" onclick="FC.deleteFolder(State.currD)">
+                    <i class="fa-solid fa-trash"></i> Delete Deck
+                </button>
+                <div class="flex gap-10">
+                    <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                    <button class="btn btn-primary" onclick="FC.saveFolderEdit()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-join" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-bottom:20px; font-weight: 700;">Join Shared Resource</h2>
+            <div class="input-wrapper">
+                <label
+                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px; display: block;">Resource
+                    ID</label>
+                <input id="join-id" class="input-std" placeholder="e.g. SPF-12345">
+            </div>
+            <div class="input-wrapper">
+                <label
+                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px; display: block;">Password</label>
+                <input id="join-pass" type="password" class="input-std" placeholder="Enter Password">
+            </div>
+            <button class="btn btn-primary w-full" onclick="Shared.confirmJoin()">
+                <i class="fa-solid fa-download"></i> Connect & Import
+            </button>
+            <button class="btn btn-secondary w-full" style="margin-top: 10px; border:none;"
+                onclick="Modals.close()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="modal-share-permission" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-bottom:20px; font-weight: 700;">
+                <i class="fa-solid fa-share-nodes"></i> Share Resource
+            </h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Choose permission level for people you share
+                with:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px;">
+                <div class="permission-option" onclick="Shared.selectPermission('viewer', this)" data-role="viewer">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="permission-radio">
+                            <i class="fa-solid fa-circle" style="font-size: 8px; color: white;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">
+                                <i class="fa-solid fa-eye"></i> Viewer
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                                Can only view and study. Cannot edit or delete.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="permission-option selected" onclick="Shared.selectPermission('editor', this)"
+                    data-role="editor">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="permission-radio">
+                            <i class="fa-solid fa-circle" style="font-size: 8px; color: white;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">
+                                <i class="fa-solid fa-pen"></i> Editor
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                                Can view, edit, add and delete cards.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" style="flex: 1;" onclick="Shared.confirmShare()">
+                    <i class="fa-solid fa-share-nodes"></i> Create Share Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-share-result" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-bottom:20px; font-weight: 700; color: var(--status-success);">
+                <i class="fa-solid fa-check-circle"></i> Share Created
+            </h2>
+            <div style="background: var(--hover-bg); padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 5px;">Resource
+                        ID</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input id="share-id-display" class="input-std" readonly style="flex: 1;">
+                        <button class="btn btn-secondary" onclick="Shared.copyToClipboard('share-id-display')">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label
+                        style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 5px;">Password</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input id="share-pass-display" class="input-std" readonly style="flex: 1;">
+                        <button class="btn btn-secondary" onclick="Shared.copyToClipboard('share-pass-display')">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
+                Share these credentials with others to grant them access. They can import using the "Join" button.
+            </p>
+            <button class="btn btn-primary w-full" onclick="Modals.close()">Done</button>
+        </div>
+    </div>
+
+    <!-- Share Channel Modal -->
+    <div id="modal-share-channel" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-bottom:20px; font-weight: 700; color: var(--status-success);">
+                <i class="fa-solid fa-share-nodes"></i> Share Channel
+            </h2>
+            <p style="margin-bottom: 15px; color: var(--text-secondary);">
+                Share <strong id="share-channel-name"></strong> with others
+            </p>
+            <div style="background: var(--hover-bg); padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 5px;">Channel
+                        Code</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input id="share-channel-code" class="input-std" readonly style="flex: 1;">
+                        <button class="btn btn-secondary" onclick="Shared.copyToClipboard('share-channel-code')">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label
+                        style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 5px;">Password</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input id="share-channel-pass" class="input-std" readonly style="flex: 1;">
+                        <button class="btn btn-secondary" onclick="Shared.copyToClipboard('share-channel-pass')">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
+                <i class="fa-solid fa-info-circle"></i> Others can join this channel by clicking "Join Channel" button
+                and entering these credentials.
+            </p>
+            <button class="btn btn-primary w-full" onclick="Modals.close()">Done</button>
+        </div>
+    </div>
+
+    <!-- Join Channel Modal -->
+    <div id="modal-join-channel" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="margin-bottom:20px; font-weight: 700;">
+                <i class="fa-solid fa-users"></i> Join Shared Channel
+            </h2>
+            <div class="input-wrapper">
+                <label
+                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px; display: block;">Channel
+                    Code</label>
+                <input id="join-channel-code" class="input-std" placeholder="e.g. CH-12345">
+            </div>
+            <div class="input-wrapper">
+                <label
+                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px; display: block;">Password</label>
+                <input id="join-channel-pass" type="password" class="input-std" placeholder="Enter Password">
+            </div>
+            <button class="btn btn-primary w-full" onclick="Community.joinSharedChannel()">
+                <i class="fa-solid fa-right-to-bracket"></i> Join Channel
+            </button>
+            <button class="btn btn-secondary w-full" style="margin-top: 10px; border:none;"
+                onclick="Modals.close()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="modal-wb-note" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:20px;">
+                <i class="fa-solid fa-note-sticky"></i> Add Sticky Note
+            </h2>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:5px; color: var(--text-secondary);">Note Content</label>
+                <textarea id="wb-note-input" class="input-std" style="height: 120px; resize: none;"
+                    placeholder="Enter your note..."></textarea>
+            </div>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:8px; color: var(--text-secondary);">Note Color</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div class="note-color-option selected" data-color="#FFF59D" style="background: #FFF59D;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                    <div class="note-color-option" data-color="#FFCCBC" style="background: #FFCCBC;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                    <div class="note-color-option" data-color="#B2DFDB" style="background: #B2DFDB;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                    <div class="note-color-option" data-color="#C5CAE9" style="background: #C5CAE9;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                    <div class="note-color-option" data-color="#F8BBD0" style="background: #F8BBD0;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                    <div class="note-color-option" data-color="#E1BEE7" style="background: #E1BEE7;"
+                        onclick="WB_selectNoteColor(this)"></div>
+                </div>
+            </div>
+            <div class="flex justify-between" style="margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" onclick="Whiteboard.confirmNote()">
+                    <i class="fa-solid fa-check"></i> Add Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-wb-text" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:20px;">
+                <i class="fa-solid fa-font"></i> Add Text
+            </h2>
+            <div class="input-wrapper">
+                <label style="display:block; margin-bottom:5px; color: var(--text-secondary);">Text Content</label>
+                <input id="wb-text-input" class="input-std" placeholder="Enter text...">
+            </div>
+            <div class="flex justify-between" style="margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="Modals.close()">Cancel</button>
+                <button class="btn btn-primary" onclick="Whiteboard.confirmText()">
+                    <i class="fa-solid fa-check"></i> Add Text
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>
